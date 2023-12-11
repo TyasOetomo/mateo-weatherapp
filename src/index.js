@@ -11,7 +11,7 @@ function refreshWeather(response) {
 
     cityElement.innerHTML = response.data.city;
     timeElement.innerHTML = formatDate(date);
-    descriptionElement.innerHTML = response.condition.description;
+    descriptionElement.innerHTML = response.data.condition.description;
     humidityElement.innerHTML = '${response.data.temperature.humidity}%';
     windSpeedElement.innerHTML = '${response.data.wind.speed}km/h';
     temperatureElement.innerHTML= Math.around(temperature);
@@ -31,7 +31,7 @@ function formatDate(date) {
         "Saturday",
       ];
 
-    let day = date.getDay();
+    let day = days[date.getDay()];
   
     if (minutes < 10) {
       minutes = `0${minutes}`;
@@ -42,13 +42,13 @@ function formatDate(date) {
   
 function searchCity(city)  {
     let apiKey = "a46864248af1to13af6fb11d0a4be3f9";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`;
     axios.get(apiUrl).then(refreshWeather);
   }
 
 function handleSearchSubmit(event) {
     event.preventDefault();
-    let searchInput = document.querySelector("#searh-form-input");
+    let searchInput = document.querySelector("#search-form-input");
     
     searchCity(searchInput.value);
 }
