@@ -14,7 +14,7 @@ function refreshWeather(response) {
     descriptionElement.innerHTML = response.condition.description;
     humidityElement.innerHTML = '${response.data.temperature.humidity}%';
     windSpeedElement.innerHTML = '${response.data.wind.speed}km/h';
-    Math.around(temperature);
+    temperatureElement.innerHTML= Math.around(temperature);
     iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
   }
 
@@ -30,6 +30,7 @@ function formatDate(date) {
         "Friday",
         "Saturday",
       ];
+
     let day = date.getDay();
   
     if (minutes < 10) {
@@ -42,7 +43,7 @@ function formatDate(date) {
 function searchCity(city)  {
     let apiKey = "a46864248af1to13af6fb11d0a4be3f9";
     let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(displayTemperature);
+    axios.get(apiUrl).then(refreshWeather);
   }
 
 function handleSearchSubmit(event) {
